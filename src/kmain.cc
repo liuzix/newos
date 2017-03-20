@@ -7,25 +7,24 @@
 #include "devices/serial.h"
 #include "utils.h"
 #include "string.h"
+#include "multiboot.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 
 
-extern "C" int kmain(int boot_info) {
+extern "C" int kmain(intptr_t boot_info) {
 	void* boot_info_temp = (void*)boot_info; // save a copy in case rdi destroyed
 	init_serial();
 	kprintf("system loading...\n");
 	kprintf("kprintf: boot_info = %u \n", boot_info_temp);
-	
+	multiboot::parse_tags(boot_info);
   	asm("cli");
-	while (true)
-	{
+	while (true) {
 		asm("hlt");
 	}
 	// When the first interrupt comes, idle thread will be run
 	// NOT REACHED
-	
 }
 
 
