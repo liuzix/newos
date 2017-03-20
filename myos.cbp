@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="myos"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/zixiong/myos"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/zixiong/myos"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/zixiong/myos"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="bootloader">
+				<Option output="/Users/zixiong/myos/bootloader" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/zixiong/myos"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 bootloader"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="bootloader/fast">
+				<Option output="/Users/zixiong/myos/bootloader" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/zixiong/myos"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 bootloader/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/zixiong/myos/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/zixiong/myos/src/boot/boot.asm">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/boot/interrupt_stub.asm">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/boot/long_mode_init.asm">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/boot/multiboot_header.asm">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/frame.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/frame.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/heap_allocator.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/heap_allocator.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/interrupts.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/interrupts.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/kmain.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/lib/assert.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/lib/bitmap.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/lib/printf.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/lib/printf.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/meminit.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/paging.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/paging.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/runtime.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/utils.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/vga.cc">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/src/vga.h">
+			<Option target="bootloader"/>
+		</Unit>
+		<Unit filename="/Users/zixiong/myos/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
