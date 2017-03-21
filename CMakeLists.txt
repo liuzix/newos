@@ -25,7 +25,7 @@ file(GLOB DEV_SOURCE_FILES src/devices/*.cc)
 set(CMAKE_CXX_FLAGS "-g -O0 -nostdlib -fno-exceptions  -mno-red-zone")
 #src/crti.o src/crtbegin.o src/crtend.o src/crtn.o
 add_executable(bootloader ${ARCH_SOURCE_FILES} ${MAIN_SOURCE_FILES} ${LIB_SOURCE_FILES} ${DEV_SOURCE_FILES})
-set_target_properties(bootloader PROPERTIES LINK_FLAGS  "-fuse-ld=gold -Wl,-n -Wl,-T ${CMAKE_CURRENT_SOURCE_DIR}/src/boot/linker.ld" LINKER_LANGUAGE CXX)
+set_target_properties(bootloader PROPERTIES LINK_FLAGS  "-fuse-ld=gold  -Wl,-T ${CMAKE_CURRENT_SOURCE_DIR}/src/boot/linker.ld" LINKER_LANGUAGE CXX)
 
 
 
