@@ -3,7 +3,6 @@
 //
 
 // miscellaneous runtime support
-#include <bits/functexcept.h>
 #include <stdint.h>
 #include <stddef.h>
 #include "lib/assert.h"
@@ -11,13 +10,6 @@
 extern "C" void *memset(void *s, int c, size_t n);
 
 
-void std::__throw_length_error(const char*) {
-  panic();
-}
-
-void std::__throw_bad_alloc(void) {
-  panic();
-}
 
 
 extern "C" void __assert_func(const char* file, int line, const char* func, const char* what) {

@@ -3,8 +3,8 @@
 
 namespace multiboot {
 
-	uint8_t memory_base;
-	uint8_t memory_length;
+	intptr_t memory_base;
+	intptr_t memory_length;
 
 
 	void parse_tags(intptr_t addr)
@@ -26,11 +26,21 @@ namespace multiboot {
 						(unsigned)(mmap->addr & 0xffffffff),
 						(unsigned)(mmap->len >> 32),
 						(unsigned)(mmap->len & 0xffffffff),
-						(unsigned)mmap->type);
+						(unsigned)mmap->type);
+
 					if (mmap->addr >= 0x100000 && mmap->type == 1) {
 						memory_base = mmap->addr;
 						memory_length = mmap->len;
 					}
+				}
+			}
+
+			if (tag->type == 9) {
+				multiboot_tag_elf* elf_tag = (multiboot_tag_elf*)tag;
+				for (int i = 0; i < elf_tag->num; i++) {
+					intptr_t addr = elf_tag->headers[i].sh_addr;
+					intptr_t sec_len = elf_tag->headers[i].sh_size;
+					kprintf("section addr = 0x%lx, size = %ld\n");
 				}
 			}
 		}
