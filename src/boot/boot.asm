@@ -8,11 +8,21 @@
 ; except according to those terms.
 
 global start
+
 extern long_mode_start
 global tss
 global tss_entry
 global int_stack
 global p4_table
+
+global check_cpuid
+global check_long_mode
+global enable_paging
+global set_up_SSE
+global gdt_pointer
+global gdt_data
+global gdt_code
+
 
 section .text
 bits 32
@@ -22,26 +32,34 @@ start:
     ; modify the `edi` register until the kernel it called.
     mov edi, ebx
 
+
     call check_multiboot
     call check_cpuid
     call check_long_mode
 
     call set_up_page_tables
+
     call enable_paging
+
     call set_up_SSE
+
     call set_up_pic
 
-    ; load the 64-bit GDT
-    lgdt [gdt64.pointer]
 
+    ; load the 64-bit GDT
+    lgdt [gdt_pointer]
+    ;hlt
     ; update selectors
-    mov ax, gdt64.data
+    mov ax, gdt_data
     mov ss, ax
     mov ds, ax
     mov es, ax
 
-    jmp gdt64.code:long_mode_start
 
+    jmp gdt_code:long_mode_start
+
+
+bits 32
 set_up_pic:
     mov al, 0x11
     out 0x20, al
@@ -110,6 +128,7 @@ enable_paging:
     ; enable paging in the cr0 register
     mov eax, cr0
     or eax, 1 << 31
+    and eax, ~(0b11 << 29)
     mov cr0, eax
 
     ret
@@ -192,22 +211,29 @@ set_up_SSE:
     ; check for SSE
     mov eax, 0x1
     cpuid
-    test edx, 1<<25
+    test edx, 7 << 25
     jz .no_SSE
+
 
     ; enable SSE
     mov eax, cr0
     and ax, 0xFFFB      ; clear coprocessor emulation CR0.EM
     or ax, 0x2          ; set coprocessor monitoring  CR0.MP
     mov cr0, eax
+
     mov eax, cr4
     or ax, 3 << 9       ; set CR4.OSFXSR and CR4.OSXMMEXCPT at the same time
+    ;or eax, 1 << 18
+
     mov cr4, eax
+
 
     ret
 .no_SSE:
     mov al, "a"
     jmp error
+
+
 
 section .bss
 align 4096
@@ -226,13 +252,14 @@ int_stack:
 section .data
 gdt64:
     dq 0 ; zero entry
-.code: equ $ - gdt64 ; new
+gdt_code: equ $ - gdt64 ; new
     dq (1<<44) | (1<<47) | (1<<41) | (1<<43) | (1<<53) ; code segment
-.data: equ $ - gdt64 ; new
+gdt_data: equ $ - gdt64 ; new
     dq (1<<44) | (1<<47) | (1<<41) ; data segment
 tss: equ $ - gdt64 ; new
     dq 0
-.pointer:
+    dq 0
+gdt_pointer:
     dw $ - gdt64 - 1
     dq gdt64
 tss_entry:; reserved for tss

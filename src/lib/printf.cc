@@ -3,6 +3,9 @@
 //
 #include "../devices/serial.h"
 #include <stdint.h>
+#include "../vga.h"
+#include "../lock.h"
+
 typedef unsigned long size_t;
 typedef long ssize_t;
 #ifdef __64BIT__
@@ -405,16 +408,19 @@ static void
 putchar(int c, void *arg)
 {
   /* add your putchar here *//* add your putchar here */
-	write_serial(c);
+  vga::putc(c, COLOR_WHITE);
 }
 
+synchronization::SpinLock lock;
 int
 kprintf(const char *fmt, ...)
 {
   /* http://www.pagetable.com/?p=298 */
   va_list ap;
   va_start(ap, fmt);
+  lock.lock();
   int ret = kvprintf(fmt, putchar, NULL, 10, ap);
+  lock.unlock();
   va_end(ap);
   return ret;
 }

@@ -5,9 +5,9 @@
 #ifndef MYOS_BITMAP_H
 #define MYOS_BITMAP_H
 
-#include <cstdint>
-#include <cstddef>
-#include <new>
+
+#include <stddef.h>
+#include <stdint.h>
 #include "printf.h"
 #include "assert.h"
 

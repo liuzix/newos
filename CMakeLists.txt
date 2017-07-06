@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
 project(myos CXX ASM_NASM)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_SYSTEM_NAME  Myos)
 MESSAGE(STATUS "Setting toochain...")
-#set(CMAKE_C_COMPILER /Users/zixiong/x-tools/x86_64-unknown-elf/bin/x86_64-unknown-elf-gcc)
-#set(CMAKE_CXX_COMPILER /Users/zixiong/x-tools/x86_64-unknown-elf/bin/x86_64-unknown-elf-g++)
+#set(CMAKE_C_COMPILER /usr/local/gcc-4.8.1-for-linux64/bin/x86_64-pc-linux-gcc)
 
 #include_directories( ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -21,12 +20,14 @@ file(GLOB MAIN_SOURCE_FILES src/*.cc)
 file(GLOB LIB_SOURCE_FILES src/lib/*.cc)
 file(GLOB DEV_SOURCE_FILES src/devices/*.cc)
 
-#set(CMAKE_CXX_LINK_EXECUTABLE "/usr/local/binutils/bin/x86_64-unknown-linux-gnu-ld")
-set(CMAKE_CXX_FLAGS "-g -O0 -nostdlib -fno-exceptions  -mno-red-zone")
-#src/crti.o src/crtbegin.o src/crtend.o src/crtn.o
-add_executable(bootloader ${ARCH_SOURCE_FILES} ${MAIN_SOURCE_FILES} ${LIB_SOURCE_FILES} ${DEV_SOURCE_FILES})
-set_target_properties(bootloader PROPERTIES LINK_FLAGS  "-fuse-ld=gold  -Wl,-T ${CMAKE_CURRENT_SOURCE_DIR}/src/boot/linker.ld" LINKER_LANGUAGE CXX)
+set(CMAKE_CXX_LINK_EXECUTABLE "/usr/local/gcc-4.8.1-for-linux64/bin/x86_64-pc-linux-ld <LINK_FLAGS> <OBJECTS>  -o <TARGET> ")
+set(CMAKE_CXX_FLAGS " -g -O0 -DBOOST_NO_EXCEPTIONS -DBOOST_NO_EXCEPTION_STD_NAMESPACE -fno-rtti -nostdlib -fno-exceptions  -mno-red-zone -target x86_64-pc-linux  -masm=intel --sysroot=/usr/local/gcc-4.8.1-for-linux64 ")
+add_executable(bootloader ${ARCH_SOURCE_FILES} ${MAIN_SOURCE_FILES} ${LIB_SOURCE_FILES} ${DEV_SOURCE_FILES} src/x86.cc src/x86.h src/idt.cc src/idt.h src/malloc.cc src/malloc.h src/gdt.cc src/gdt.h src/thread.cc src/thread.h src/lib/cpu_local.h src/lib/queue.h src/lib/linkedlist.h src/fs/vfs.h src/fs/ramdisk.cc src/fs/ramdisk.h src/lib/string.cc src/fs/path.h src/userproc.cc src/userproc.h src/fs/vfs.cc src/elf.cc src/elf.h src/syscall.cc src/syscall.h)
+set_target_properties(bootloader PROPERTIES LINK_FLAGS  " -T ${CMAKE_CURRENT_SOURCE_DIR}/src/boot/linker.ld -z max-page-size=0x1000" LINKER_LANGUAGE CXX)
 
-
+find_package(Boost 1.36.0)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
 
 #add_executable(myos ${SOURCE_FILES})

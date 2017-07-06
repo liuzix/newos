@@ -10,7 +10,7 @@
 inline void panic() {
   kprintf("PANIC");
   while (true) {
-    asm("hlt");
+    //asm("hlt");
   }
 }
 

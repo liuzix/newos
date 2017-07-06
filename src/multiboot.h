@@ -5,6 +5,14 @@ namespace multiboot {
 	extern intptr_t memory_base;
 	extern intptr_t memory_length;
 
+	extern intptr_t last_section;
+	extern intptr_t last_section_length;
+
+	extern uint64_t ramdisk_start;
+	extern uint64_t ramdisk_end;
+
+    intptr_t get_first_free_page ();
+
 	struct multiboot_tag {
 		uint32_t type;
 		uint32_t size;
@@ -30,6 +38,15 @@ namespace multiboot {
 		struct multiboot_mmap_entry entries[0];
 	} __attribute__((packed));
 
+	struct multiboot_tag_module
+	{
+		uint32_t type;
+		uint32_t size;
+		uint32_t mod_start;
+		uint32_t mod_end;
+		char str[];
+	} __attribute__((packed));
+
 	typedef struct elf64_shdr {
 		uint32_t sh_name;		/* Section name, index in string tbl */
 		uint32_t sh_type;		/* Type of section */
@@ -46,8 +63,8 @@ namespace multiboot {
 	struct multiboot_tag_elf {
 		uint32_t type;
 		uint32_t size;
-		uint16_t num;
-		uint16_t entsize;
+		uint32_t num;
+		uint32_t entsize;
 		uint16_t shndx;
 		uint16_t reserved;
 		elf64_shdr headers[];

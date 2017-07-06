@@ -1,7 +1,7 @@
-#include "../utils.h"
+#include "../x86.h"
 
 #define PORT 0x3f8   /* COM1 */
- 
+using namespace x86;
 void init_serial() {
 	outb(PORT + 1, 0x00);    // Disable all interrupts
 	outb(PORT + 3, 0x80);    // Enable DLAB (set baud rate divisor)
