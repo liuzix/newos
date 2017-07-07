@@ -137,7 +137,7 @@ void enable_timer () {
     write_apic_register_32(APIC_INIT_COUNT, (uint32_t )load_count);
     kprintf("Cpu %d enabled timer, load_count = %u\n", get_cpu_id(), load_count);
     lock.unlock();
-    asm ("sti");
+    x86::sti();
 }
 
 void global_init_apic() {

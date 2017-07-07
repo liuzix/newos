@@ -90,6 +90,10 @@ void operator delete[](void *p)
     memory::malloc::free(p);
 }
 
+void operator delete(void* p, unsigned long) {
+    memory::malloc::free(p);
+}
+
 namespace __cxxabiv1
 {
     /* guard variables */
@@ -120,7 +124,9 @@ namespace __cxxabiv1
 }
 
 
+namespace std {
 
+}
 
 
 //extern "C" void __dso_handle() {

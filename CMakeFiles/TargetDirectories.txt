@@ -1,0 +1,3 @@
+/home/test/newos/CMakeFiles/rebuild_cache.dir
+/home/test/newos/CMakeFiles/edit_cache.dir
+/home/test/newos/CMakeFiles/bootloader.dir

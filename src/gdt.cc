@@ -40,8 +40,15 @@ static inline dscr_64 get_mem_segment(Segment_type type, int privilege) {
     if (type != data && type != code) {
         assert_true(false);
     }
-    dscr_64 ret = {.base_lo = 0, .base_mid = 0, .base_hi = 0, .limit = 0,
-                   .attrs = 0};
+    //dscr_64 ret = {.base_lo = 0, .base_mid = 0, .base_hi = 0, .limit = 0,
+    //               .attrs = 0};
+    dscr_64 ret = {
+        limit: 0,
+        base_lo: 0,
+        base_mid: 0,
+        attrs: 0,
+        base_hi: 0,
+    };
     ret.attrs |= 1 << 1; // readable or writable
     ret.attrs |= (uint16_t)(type == code ? 0b11 : 0b10) << 3; // type
     ret.attrs |= privilege << 5;

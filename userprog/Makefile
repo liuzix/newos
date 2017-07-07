@@ -1,6 +1,6 @@
-CC = clang
-LD = x86_64-pc-linux-ld
-CFLAGS = -target x86_64-pc-linux  -ffreestanding
+CC = gcc
+LD = ld
+CFLAGS = -ffreestanding
 targets = test
 objects = $(addsuffix .o,$(targets))
 all: $(targets)
